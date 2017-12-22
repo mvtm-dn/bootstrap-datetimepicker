@@ -14,3 +14,7 @@
 
 // Import datepicker component
 @import "_bootstrap-datetimepicker";
+
+.glyphicon-remove           { &:before { content: "\e088"; } }
+.glyphicon-screenshot           { &:before { content: "\e087"; } }
+

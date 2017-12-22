@@ -40,6 +40,14 @@
     content: "\e109";
 }
 
+.glyphicon-remove:before {
+  content: "\e088";
+}
+.glyphicon-screenshot:before {
+  content: "\e087";
+}
+
+
 .btn {
     display: inline-block;
     padding: 6px 12px;
