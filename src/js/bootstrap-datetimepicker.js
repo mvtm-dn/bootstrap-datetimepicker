@@ -347,7 +347,7 @@
 
                 if (options.sideBySide && hasDate() && hasTime()) {
                     template.addClass('timepicker-sbs');
-                    if (options.toolbarPlacement === 'top') {
+                    if (options.toolbarPlacement === 'top' || options.toolbarPlacement === 'default') {
                         template.append(toolbar);
                     }
                     template.append(
@@ -1053,43 +1053,73 @@
 
                 incrementHours: function () {
                     var newDate = date.clone().add(1, 'h');
-                    if (isValid(newDate, 'h')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.maxDate && newDate.isAfter(options.maxDate)) {
+                            setValue(options.maxDate);
+                        }
                     }
                 },
 
                 incrementMinutes: function () {
                     var newDate = date.clone().add(options.stepping, 'm');
-                    if (isValid(newDate, 'm')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.maxDate && newDate.isAfter(options.maxDate)) {
+                            setValue(options.maxDate);
+                        }
                     }
                 },
 
                 incrementSeconds: function () {
                     var newDate = date.clone().add(1, 's');
-                    if (isValid(newDate, 's')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.maxDate && newDate.isAfter(options.maxDate)) {
+                            setValue(options.maxDate);
+                        }
                     }
                 },
 
                 decrementHours: function () {
                     var newDate = date.clone().subtract(1, 'h');
-                    if (isValid(newDate, 'h')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.minDate && newDate.isBefore(options.minDate)) {
+                            return setValue(options.minDate);
+                        }
                     }
                 },
 
                 decrementMinutes: function () {
                     var newDate = date.clone().subtract(options.stepping, 'm');
-                    if (isValid(newDate, 'm')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.minDate && newDate.isBefore(options.minDate)) {
+                            return setValue(options.minDate);
+                        }
                     }
                 },
 
                 decrementSeconds: function () {
                     var newDate = date.clone().subtract(1, 's');
-                    if (isValid(newDate, 's')) {
+                    if (isValid(newDate)) {
                         setValue(newDate);
+                    }
+                    else {
+                        if (options.minDate && newDate.isBefore(options.minDate)) {
+                            return setValue(options.minDate);
+                        }
                     }
                 },
 
@@ -1183,6 +1213,11 @@
                     var todaysDate = getMoment();
                     if (isValid(todaysDate, 'd')) {
                         setValue(todaysDate);
+                    }
+                    else {
+                        if (options.maxDate && todaysDate.isAfter(options.maxDate)) {
+                            setValue(options.maxDate);
+                        }
                     }
                 },
 
